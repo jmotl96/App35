@@ -1,0 +1,295 @@
+Index: .idea/.idea.App3/App3.Android.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.App3/App3.Android.iml	(date 1587512323612)
++++ .idea/.idea.App3/App3.Android.iml	(date 1587512323612)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="RIDER_MODULE_ANDROID" version="4">
++  <component name="FacetManager">
++    <facet type="android" name="Android Facet - App3.Android">
++      <configuration>
++        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/Properties/AndroidManifest.xml" />
++        <option name="RES_FOLDER_RELATIVE_PATH" value="/Resources" />
++        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/Assets" />
++      </configuration>
++    </facet>
++  </component>
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$/../../App3/App3.Android" />
++    <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/.idea.App3/.idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.App3/.idea/misc.xml	(date 1587512324981)
++++ .idea/.idea.App3/.idea/misc.xml	(date 1587512324981)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="com.jetbrains.rider.android.RiderAndroidMiscFileCreationComponent">
++    <option name="ENSURE_MISC_FILE_EXISTS" value="true" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.idea.App3/.idea/indexLayout.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.App3/.idea/indexLayout.xml	(date 1587512325761)
++++ .idea/.idea.App3/.idea/indexLayout.xml	(date 1587512325761)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ContentModelUserStore">
++    <attachedFolders />
++    <explicitIncludes />
++    <explicitExcludes />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.idea.App3/.idea/projectSettingsUpdater.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.App3/.idea/projectSettingsUpdater.xml	(date 1587512325808)
++++ .idea/.idea.App3/.idea/projectSettingsUpdater.xml	(date 1587512325808)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RiderProjectSettingsUpdater">
++    <option name="vcsConfiguration" value="1" />
++  </component>
++</project>
+\ No newline at end of file
+Index: App3/App3/MainPage.xaml.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- App3/App3/MainPage.xaml.cs	(date 1588184494782)
++++ App3/App3/MainPage.xaml.cs	(date 1588184494782)
+@@ -0,0 +1,84 @@
++using System;
++using System.Collections.Generic;
++using System.ComponentModel;
++using System.Linq;
++using System.Text;
++using System.Threading.Tasks;
++using App3;
++using Xamarin.Forms;
++
++namespace Sample_Personality_Test
++{
++    // Learn more about making custom code visible in the Xamarin.Forms previewer
++    // by visiting https://aka.ms/xamarinforms-previewer
++    [DesignTimeVisible(false)]
++    public partial class MainPage : ContentPage
++    {
++        public int index = -1;
++
++
++        public MainPage()
++        {
++            InitializeComponent();
++            NextQuestion();
++        }
++        
++        private void OnSwipedleft(object sender, SwipedEventArgs e)
++        {
++            DndClass.All[Questions.All[index].Affirmative].Points++;
++            NextQuestion();
++        }
++        
++        private void OnSwipedright(object sender, SwipedEventArgs e)
++        {
++            DndClass.All[Questions.All[index].Negative].Points++;
++            NextQuestion();
++        }
++
++        void OnLeftButtonClicked(object sender, EventArgs args)
++        {
++            DndClass.All[Questions.All[index].Affirmative].Points++;
++            NextQuestion();
++        }
++
++        void OnRightButtonClicked(object sender, EventArgs args)
++        {
++            DndClass.All[Questions.All[index].Negative].Points++;
++            NextQuestion();
++        }
++
++        private void NextQuestion()
++        {
++            index++;
++            if (index < Questions.All.Count)
++            {
++                Question.Text = Questions.All[index].Prompt;
++                Left_Button.Text = Questions.All[index].Left;
++                Right_Button.Text = Questions.All[index].Right;
++            }
++            else
++            {
++                Left_Button.Text = "";
++                Right_Button.Text = "";
++                Left_Button.IsVisible = false;
++                Right_Button.IsVisible = false;
++                int Result_House_Points = 0;
++                string Result_House = "";
++                foreach (DndClass home in DndClass.All)
++                {
++                    if (home.Points > Result_House_Points)
++                    {
++                        Result_House = home.Name;
++                        Result_House_Points = home.Points;
++                    }
++                }
++                Banner.IsVisible = true;
++                string Image_Name = Result_House.ToLower()+".jpg";
++                Question.Text = Result_House;
++                Banner.Source = Image_Name;
++            }
++        }
++
++        
++    }
++}
+\ No newline at end of file
+Index: .idea/.idea.App3/.idea/libraries/appcompat_v7_27_0_2_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.App3/.idea/libraries/appcompat_v7_27_0_2_1.xml	(date 1587512325829)
++++ .idea/.idea.App3/.idea/libraries/appcompat_v7_27_0_2_1.xml	(date 1587512325829)
+@@ -0,0 +1,9 @@
++<component name="libraryTable">
++  <library name="appcompat-v7-27.0.2.1">
++    <CLASSES>
++      <root url="jar://$USER_HOME$/AppData/Local/JetBrains/Rider/AndroidLibs/tmp/appcompat-v7-27.0.2.aar/classes.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/.idea.App3/.idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.App3/.idea/encodings.xml	(date 1587512274127)
++++ .idea/.idea.App3/.idea/encodings.xml	(date 1587512274127)
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Encoding" addBOMForNewFiles="with BOM under Windows, with no BOM otherwise" />
++</project>
+\ No newline at end of file
+Index: .idea/.idea.App3/.idea/libraries/design_27_0_2_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.App3/.idea/libraries/design_27_0_2_1.xml	(date 1587512325862)
++++ .idea/.idea.App3/.idea/libraries/design_27_0_2_1.xml	(date 1587512325862)
+@@ -0,0 +1,9 @@
++<component name="libraryTable">
++  <library name="design-27.0.2.1">
++    <CLASSES>
++      <root url="jar://$USER_HOME$/AppData/Local/JetBrains/Rider/AndroidLibs/tmp/design-27.0.2.aar/classes.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/.idea.App3/.idea/libraries/cardview_v7_27_0_2_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.App3/.idea/libraries/cardview_v7_27_0_2_1.xml	(date 1587512325847)
++++ .idea/.idea.App3/.idea/libraries/cardview_v7_27_0_2_1.xml	(date 1587512325847)
+@@ -0,0 +1,9 @@
++<component name="libraryTable">
++  <library name="cardview-v7-27.0.2.1">
++    <CLASSES>
++      <root url="jar://$USER_HOME$/AppData/Local/JetBrains/Rider/AndroidLibs/tmp/cardview-v7-27.0.2.aar/classes.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/.idea.App3/.idea/libraries/support_v4_27_0_2_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.App3/.idea/libraries/support_v4_27_0_2_1.xml	(date 1587512325903)
++++ .idea/.idea.App3/.idea/libraries/support_v4_27_0_2_1.xml	(date 1587512325903)
+@@ -0,0 +1,9 @@
++<component name="libraryTable">
++  <library name="support-v4-27.0.2.1">
++    <CLASSES>
++      <root url="jar://$USER_HOME$/AppData/Local/JetBrains/Rider/AndroidLibs/tmp/support-v4-27.0.2.aar/classes.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/.idea.App3/.idea/libraries/mediarouter_v7_27_0_2_1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.App3/.idea/libraries/mediarouter_v7_27_0_2_1.xml	(date 1587512325883)
++++ .idea/.idea.App3/.idea/libraries/mediarouter_v7_27_0_2_1.xml	(date 1587512325883)
+@@ -0,0 +1,9 @@
++<component name="libraryTable">
++  <library name="mediarouter-v7-27.0.2.1">
++    <CLASSES>
++      <root url="jar://$USER_HOME$/AppData/Local/JetBrains/Rider/AndroidLibs/tmp/mediarouter-v7-27.0.2.aar/classes.jar!/" />
++    </CLASSES>
++    <JAVADOC />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+Index: .idea/.idea.App3/.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.App3/.idea/vcs.xml	(date 1588184649094)
++++ .idea/.idea.App3/.idea/vcs.xml	(date 1588184649094)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.idea.App3/.idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.idea.App3/.idea/.gitignore	(date 1588184627148)
++++ .idea/.idea.App3/.idea/.gitignore	(date 1588184627148)
+@@ -0,0 +1,2 @@
++# Default ignored files
++/workspace.xml
+\ No newline at end of file
